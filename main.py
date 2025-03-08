@@ -12,12 +12,11 @@ def main():
 
     try:
         while True:
-            time.sleep(1)  # 每秒辨識一次
+            time.sleep(0.1)  # 每秒辨識一次
             command = speech_processor.get_command()
             if command:
                 print(f"✅ 偵測到語音指令: {command}")
             else:
-                print(f"{command}")
                 print("⏳ 目前沒有偵測到指令...")
     
     except KeyboardInterrupt:
