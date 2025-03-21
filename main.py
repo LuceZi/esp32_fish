@@ -4,9 +4,9 @@ import serial
 import time
 
 # 設定 UART 連接（請根據你的 ESP32 連接埠修改）
-connect_port = 'COM3'
+connect_port = 'COM4'
 
-def send_command(command):
+def send_command(ser, command):
     ser.write((command + '\n').encode())  # 發送指令，加上換行符
     print(f"Sent: {command}")  # 顯示發送的指令
 
@@ -23,20 +23,21 @@ def main(ser):
 
     try:
         while True:
-            time.sleep(0.5)  # 輪巡偵測語音指令
+            time.sleep(1)  # 輪巡偵測語音指令
             command = speech_processor.get_command()
             if command:
                 print(f"✅ 偵測到語音指令: {command}")
-                send_command(command)
+                send_command(ser, command)
 
-            else:
-                print("⏳ 目前沒有偵測到指令...")
+            #else:
+                #print("⏳ 目前沒有偵測到指令...")
     
     except KeyboardInterrupt:
         print("\n🛑 停止語音辨識")
         speech_processor.stop_recording()
 
 if __name__ == "__main__":
+    ser = None  # 預先定義變數，避免未定義錯誤
     try:
         ser = serial.Serial(connect_port, 115200, timeout=1) # 初始化 UART 連接
         print("🚀 啟動語音辨識系統...")
@@ -48,6 +49,7 @@ if __name__ == "__main__":
         print(f"❌ 發生錯誤：{e}")
 
     finally:
-        ser.close()
-        print("🔌 關閉連接")
+        if ser and ser.is_open:  # 確保 ser 存在且已打開
+            ser.close()
+            print("🔌 關閉連接")
         

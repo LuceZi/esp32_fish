@@ -23,7 +23,6 @@ class SpeechProcessor:
         audio_data = self.recorder.get_audio_buffer()  # 取得錄音 buffer
         if len(audio_data) == 0:
             return None  # 沒有音訊可辨識
-
         # 轉換音訊為 bytes 格式（符合 Vosk 需求）
         audio_bytes = np.array(audio_data, dtype=np.int16).tobytes()
 
@@ -33,12 +32,13 @@ class SpeechProcessor:
             text = result["text"]  # 取得辨識文字（保持原樣）
 
             # 定義關鍵詞
-            commands = {"前进": "前進", "左": "左轉", "右转": "右轉"}
+            commands = {"前": "forward", "左": "left", "右": "right"}
 
             # **檢查 text 中是否包含任何關鍵詞**
             for word in commands:
                 if word in text:  # 如果關鍵詞出現在 `text` 裡
                     return commands[word]  # 回傳對應的指令
-
+            else:
+                print(f"🔍 無法辨識指令：{text}")
         return None  # 沒有偵測到有效指令
 

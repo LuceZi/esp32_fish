@@ -66,7 +66,7 @@ class Recorder:
 if __name__ == "__main__":
     try:
         # 創建錄音器
-        recorder = Recorder()
+        recorder = Recorder(16000,1,20)
 
         # 啟動錄音
         recorder.start()
