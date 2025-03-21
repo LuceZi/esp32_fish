@@ -1,7 +1,18 @@
 from audio.processor import SpeechProcessor
 import time
+import serial
+import time
 
-def main():
+# 設定 UART 連接（請根據你的 ESP32 連接埠修改）
+connect_port = 'COM3'
+
+def send_command(command):
+    ser.write((command + '\n').encode())  # 發送指令，加上換行符
+    print(f"Sent: {command}")  # 顯示發送的指令
+
+def main(ser):
+
+    print("🎉 連接成功！")
     print("🎤 語音辨識系統啟動，請開始說話...")
     
     # 創建語音處理器
@@ -12,10 +23,12 @@ def main():
 
     try:
         while True:
-            time.sleep(0.1)  # 每秒辨識一次
+            time.sleep(0.5)  # 輪巡偵測語音指令
             command = speech_processor.get_command()
             if command:
                 print(f"✅ 偵測到語音指令: {command}")
+                send_command(command)
+
             else:
                 print("⏳ 目前沒有偵測到指令...")
     
@@ -24,4 +37,17 @@ def main():
         speech_processor.stop_recording()
 
 if __name__ == "__main__":
-    main()
+    try:
+        ser = serial.Serial(connect_port, 115200, timeout=1) # 初始化 UART 連接
+        print("🚀 啟動語音辨識系統...")
+        print(f"🔗 連接至 {connect_port}...")
+        time.sleep(2)  # 等待連接穩定
+        main(ser)
+
+    except Exception as e:
+        print(f"❌ 發生錯誤：{e}")
+
+    finally:
+        ser.close()
+        print("🔌 關閉連接")
+        

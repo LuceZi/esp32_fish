@@ -33,7 +33,7 @@ class SpeechProcessor:
             text = result["text"]  # 取得辨識文字（保持原樣）
 
             # 定義關鍵詞
-            commands = {"前进": "前進", "左转": "左轉", "右转": "右轉"}
+            commands = {"前进": "前進", "左": "左轉", "右转": "右轉"}
 
             # **檢查 text 中是否包含任何關鍵詞**
             for word in commands:
