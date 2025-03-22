@@ -22,11 +22,9 @@ voice_control_fish/  # 專案根目錄
 │   ├── vosk_model/  # Vosk 語音辨識模型（請手動下載）
 │── audio/           # 音訊處理模組
 │   ├── recorder.py  # 負責錄音
-│   ├── buffer.py    # 音訊暫存與管理
 │   ├── processor.py # 語音辨識處理
 │── control/         # 控制機器魚
-│   ├── command.py   # 解析語音指令，轉換成動作
-│   ├── serial_comm.py # ESP32 串口通訊（未來擴展）
+│   ├── control.py   # 發指令
 │── utils/           # 工具函數（如日誌、錯誤處理）
 │   ├── logger.py    # 日誌紀錄
 │   ├── helper.py    # 其他輔助函數
