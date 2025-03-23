@@ -18,7 +18,10 @@ class Control:
             #print("⚠️ 無法發送空指令，忽略")
             return
         
-        commands = {"前": "forward", "左": "left", "右": "right"}
+        commands = {"前": "forward" , 
+                    "左": "left"    , 
+                    "右": "right"   ,
+                }
 
         command = None
         for word in commands:

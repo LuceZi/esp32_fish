@@ -17,6 +17,7 @@ class SpeechProcessor:
         if self.recognizer.AcceptWaveform(audio_bytes):
             result = json.loads(self.recognizer.Result())
             text = result["text"]
-        
+            
         #print(f"📝 辨識結果: {text}")
         return text  # ✅ 直接回傳數據，讓 `main.py` 處理
+            

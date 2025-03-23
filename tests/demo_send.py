@@ -2,7 +2,7 @@ import serial
 import time
 
 # 設定 UART 連接（請根據你的 ESP32 連接埠修改）
-ser = serial.Serial('COM3', 115200, timeout=1)  # Windows 可能是 COM3, COM4
+ser = serial.Serial('COM4', 115200, timeout=1)  # Windows 可能是 COM3, COM4
 # ser = serial.Serial('/dev/ttyUSB0', 115200, timeout=1)  # Linux/Mac 可能是 ttyUSB0, ttyS0
 
 time.sleep(2)  # 等待連接穩定

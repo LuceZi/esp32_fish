@@ -23,6 +23,7 @@ voice_control_fish/  # 專案根目錄
 │── audio/           # 音訊處理模組
 │   ├── recorder.py  # 負責錄音
 │   ├── processor.py # 語音辨識處理
+│   ├── data_pool.py # 資料池
 │── control/         # 控制機器魚
 │   ├── control.py   # 發指令
 │── utils/           # 工具函數（如日誌、錯誤處理）
