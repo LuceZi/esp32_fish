@@ -11,13 +11,30 @@ class Control:
             self.ser = None
             raise e
 
-    def send_command(self, command):
-        """發送指令到 ESP32"""
-        if self.ser and self.ser.is_open:
-            self.ser.write((command + '\n').encode())
-            print(f"🚀 指令發送成功: {command}")
+
+    def send_command(self, text):
+        """接收 `proc_data`，字元比對後發送指令"""
+        if text is None or text.strip() == "":
+            #print("⚠️ 無法發送空指令，忽略")
+            return
+        
+        commands = {"前": "forward", "左": "left", "右": "right"}
+
+        command = None
+        for word in commands:
+            if word in text:
+                command = commands[word]
+                break
+        
+        if command:
+            #print(f"✅ 偵測到指令: {command}")
+            if self.ser and self.ser.is_open:
+                self.ser.write((command + '\n').encode())
+                #print(f"🚀 指令發送成功: {command}")
+                return command
         else:
-            print("⚠️ UART 連線未開啟，無法發送指令")
+            #print(f"🔍 無法辨識指令：{text}")
+            return None
 
     def close(self):
         """關閉 UART 連線"""
